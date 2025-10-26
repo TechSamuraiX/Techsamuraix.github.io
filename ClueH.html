@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE MESSAGE DECRYPTED</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Import a monospace font for the terminal/hacker feel */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&display=swap');
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0d1117; /* Dark charcoal/black background */
+        }
+
+        /* Define a subtle glow animation for the border */
+        @keyframes scan-glow {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 127, 0.4), 0 0 10px rgba(0, 255, 127, 0.1); }
+            50% { box-shadow: 0 0 15px rgba(0, 255, 127, 0.8), 0 0 20px rgba(0, 255, 127, 0.3); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 127, 0.4), 0 0 10px rgba(0, 255, 127, 0.1); }
+        }
+
+        .data-panel {
+            border: 1px solid #00ff7f; /* Neon green border */
+            animation: scan-glow 3s infinite alternate;
+            background-color: rgba(1, 10, 20, 0.9); /* Slightly transparent dark background */
+        }
+
+        /* Subtle vertical scan line effect */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, rgba(0, 255, 127, 0), rgba(0, 255, 127, 0.5), rgba(0, 255, 127, 0));
+            animation: line-sweep 6s infinite linear;
+            opacity: 0.8;
+            z-index: 10;
+        }
+
+        @keyframes line-sweep {
+            0% { transform: translateY(0%); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 text-green-400">
+
+    <!-- Subtle Scan Line Visual Effect -->
+    <div class="scan-line"></div>
+
+    <!-- Data Transmission Card -->
+    <div class="data-panel w-full max-w-2xl p-6 md:p-10 rounded-xl shadow-lg relative overflow-hidden transition-all duration-300">
+
+        <!-- Header -->
+        <div class="border-b border-green-700/50 pb-4 mb-6">
+            <p class="text-sm text-green-500/70">PROTOCOL: SECURE.CMD</p>
+            <h1 class="text-3xl font-bold text-green-400">CLASSIFIED TRANSMISSION</h1>
+            <p class="text-xs text-red-500/70 mt-1">ACCESS LEVEL: RED-DELTA - UNAUTHORIZED LOGGING DETECTED</p>
+        </div>
+
+        <!-- Message Body -->
+        <div class="text-lg leading-relaxed pt-2">
+            <!-- The specific message requested by the user -->
+            <p class="text-white bg-green-900/10 p-4 rounded-lg border-l-4 border-green-500 shadow-md">
+                <span class="text-green-400 font-semibold">// DECODED MESSAGE START //</span><br><br>
+                “<span class="text-yellow-300">On Town Center Dr.</span> these pipe fittings supply water to the fighters that are famous for their ability to slide down poles and make calendars.”<br><br>
+                <span class="text-green-400 font-semibold">// END TRANSMISSION //</span>
+            </p>
+
+            <div class="mt-8 text-sm text-green-500/70">
+                > Status: Transmission Integrity Confirmed.
+                <br>
+                > Log: Data payload matches checksum.
+                <br>
+                > Awaiting next command...
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
+
