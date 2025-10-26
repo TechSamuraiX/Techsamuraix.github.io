@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorized Access Required</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font for a terminal/spy feel */
+        body {
+            font-family: 'Space Mono', monospace;
+            background-color: #0d1117; /* Deep dark blue/black */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Neon green glow effect for important text */
+        .neon-text {
+            text-shadow: 0 0 5px #34d399, 0 0 10px #34d399;
+        }
+        /* Input and Button styling */
+        .console-input {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            color: #34d399;
+            transition: border-color 0.3s;
+        }
+        .console-input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        /* Pulse animation for the button */
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+        }
+        .pulse-btn {
+            animation: pulse-green 2s infinite;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <!-- Main Console Container -->
+    <div class="w-full max-w-lg mx-auto p-6 md:p-8 bg-gray-900 border-2 border-green-500 rounded-lg shadow-2xl transition-all duration-300">
+        <h1 class="text-3xl font-bold text-center mb-6 text-green-400 neon-text">
+            [ACCESS PROTOCOL: CAIN]
+        </h1>
+
+        <!-- Password Entry Area / Message Display -->
+        <div id="content-area">
+            <p id="prompt-message" class="text-lg text-gray-300 mb-4">
+                >> Authorization Required. Enter Access Code:
+            </p>
+
+            <div id="input-container" class="flex flex-col sm:flex-row gap-3">
+                <input
+                    type="password"
+                    id="password-input"
+                    class="console-input flex-grow p-3 rounded-md text-lg focus:ring-2 focus:ring-green-500"
+                    placeholder="ENTER CODE..."
+                    onkeydown="if(event.key === 'Enter') checkPassword()"
+                    autofocus
+                />
+                <button
+                    onclick="checkPassword()"
+                    class="bg-green-600 hover:bg-green-700 text-gray-900 font-bold py-3 px-6 rounded-md uppercase pulse-btn transition-colors duration-200"
+                >
+                    Submit
+                </button>
+            </div>
+
+            <!-- Error/Status Message Box -->
+            <p id="status-message" class="mt-4 text-center text-red-500 font-bold"></p>
+        </div>
+    </div>
+
+    <script>
+        // Global variables for easy access
+        const passwordInput = document.getElementById('password-input');
+        const statusMessage = document.getElementById('status-message');
+        const contentArea = document.getElementById('content-area');
+
+        // The single correct password, stored in lowercase
+        const CORRECT_PASSWORD = "swordfish";
+
+        /**
+         * Checks the entered password against the correct code.
+         */
+        function checkPassword() {
+            const enteredPassword = passwordInput.value.trim().toLowerCase();
+
+            // Clear previous status message
+            statusMessage.textContent = '';
+            
+            if (enteredPassword === CORRECT_PASSWORD) {
+                displaySuccessMessage();
+            } else {
+                displayDeniedMessage();
+            }
+        }
+
+        /**
+         * Displays the access denied message.
+         */
+        function displayDeniedMessage() {
+            // Display error for 2 seconds
+            statusMessage.classList.remove('text-green-500', 'neon-text');
+            statusMessage.classList.add('text-red-500', 'font-bold');
+            statusMessage.textContent = '>> ACCESS DENIED. INTRUSION ALERTED. RETRY INITIATED.';
+            
+            // Clear the input and prompt for retry
+            passwordInput.value = '';
+            setTimeout(() => {
+                statusMessage.textContent = '>> ACCESS DENIED.';
+            }, 1500);
+        }
+
+        /**
+         * Displays Cain's final, successful message.
+         */
+        function displaySuccessMessage() {
+            // The long message from Cain
+            const cainMessage = `
+                <div class="text-green-300 space-y-4 pt-4 border-t border-green-700">
+                    <p class="text-xl font-bold text-green-400 neon-text">>> TRANSMISSION RECEIVED. SOURCE: CAIN</p>
+                    <p>To the Agency:</p>
+                    <p>You caught me right where I wanted to be caught… But you didn't stop the message.</p>
+                    <p>This started the day you killed my daughter. My Princess. You wrote her off as "collateral damage," but she was everything. You ended her beautiful, chaotic beat. My vengeance is already in motion.</p>
+                    <p>The key is in the dark sky I taught her to love. I used the five main stars of **Cassiopeia** to plot five critical data drops—the locations of your deepest vulnerabilities.</p>
+                    <p>I was never the target you needed to worry about. I was the fuse. The damage has been done, and you don't know who has the map.</p>
+                    <p class="text-right mt-6 font-bold text-green-500">- Cain</p>
+                </div>
+            `;
+            
+            // Overwrite the entire content area with the success message
+            contentArea.innerHTML = cainMessage;
+        }
+
+    </script>
+</body>
+</html>
+
+
